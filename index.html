@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zahra's Quest</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0d0d0d; color: #00ffcc; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .card { width: 90%; max-width: 350px; border: 2px solid #00ffcc; padding: 30px 20px; background: #1a1a1a; text-align: center; border-radius: 15px; box-shadow: 0 0 15px #00ffcc44; }
+        .lvl { font-size: 0.7rem; color: #ff85a2; margin-bottom: 10px; font-weight: bold; }
+        h1 { font-size: 1.2rem; margin: 20px 0; min-height: 50px; line-height: 1.4; }
+        .btn-area { display: flex; flex-direction: column; gap: 10px; position: relative; min-height: 140px; }
+        button { padding: 15px; font-weight: bold; border: 2px solid #00ffcc; background: none; color: #00ffcc; border-radius: 10px; cursor: pointer; width: 100%; }
+        #noBtn { position: absolute; bottom: 0; transition: 0.1s; z-index: 10; }
+        .win { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="game" class="card">
+        <div id="lvlText" class="lvl">LEVEL 1: START</div>
+        <h1 id="quest">Zahra, siap main sebentar?</h1>
+        <div class="btn-area">
+            <button id="yesBtn" onclick="next()">SIAP!</button>
+            <button id="noBtn" ontouchstart="move()" onclick="move()">GAK</button>
+        </div>
+    </div>
+
+    <div id="win" class="card win">
+        <h1 style="color:#ff85a2">MISSION CLEAR! ❤️</h1>
+        <p>You're my favorite human!</p>
+        <button onclick="location.reload()">MAIN LAGI</button>
+    </div>
+
+    <script>
+        let step = 1;
+        function next() {
+            step++;
+            const q = document.getElementById('quest');
+            const l = document.getElementById('lvlText');
+            const y = document.getElementById('yesBtn');
+            const n = document.getElementById('noBtn');
+
+            if (step === 2) {
+                l.innerText = "LEVEL 2: SURVEY";
+                q.innerText = "Kangen aku gak hari ini?";
+                y.innerText = "KANGEN!";
+                n.innerText = "DIKIT";
+                n.style.position = 'relative'; n.style.left='0'; n.style.top='0';
+            } else if (step === 3) {
+                l.innerText = "LEVEL 3: FINAL";
+                q.innerText = "Janji bakal nemenin aku terus?";
+                y.innerText = "JANJI ❤️";
+                n.innerText = "GAK MAU";
+            } else {
+                document.getElementById('game').style.display = 'none';
+                document.getElementById('win').style.display = 'block';
+            }
+        }
+
+        function move() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            btn.style.position = 'fixed';
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+            btn.style.width = '100px';
+        }
+    </script>
+</body>
+</html>
